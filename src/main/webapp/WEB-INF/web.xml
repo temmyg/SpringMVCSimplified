@@ -1,0 +1,56 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+  <display-name>Archetype Created Web Application</display-name>
+
+  <!-- 前端控制器，拦截所有请求  -->
+  <servlet>
+    <servlet-name>mvc-dispatcher</servlet-name>
+    <servlet-class>com.southwind.servlet.MyDispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>springmvc.xml</param-value>
+    </init-param>
+  </servlet>
+  <servlet>
+    <servlet-name>raw-text-dispatcher</servlet-name>
+    <servlet-class>com.southwind.servlet.RawTextServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value></param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>raw-text-dispatcher</servlet-name>
+    <url-pattern>/a2/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping> <!-- http://localhost:8090/SpringMVCImitate/testController/abcde/test, max matched segment count, longer then the below, mapped 3 vs mapped 2 -->
+    <servlet-name>raw-text-dispatcher</servlet-name>
+    <!--<url-pattern>/testController/*</url-pattern>-->
+    <url-pattern>/testController/abcde/test/*</url-pattern>
+    <!--<url-pattern>/a1/*</url-pattern>-->
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>mvc-dispatcher</servlet-name>
+    <!--<url-pattern>/testController/*</url-pattern>-->
+    <url-pattern>/testController/abcde/*</url-pattern>
+    <!--<url-pattern>/a1/*</url-pattern>-->
+  </servlet-mapping>
+
+  <!-- http://localhost:8090/SpringMVCImitate/testController/abcde/test is not a map for default servlet path '/' -->
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.html</url-pattern>
+    <url-pattern>*.jsp1</url-pattern>
+  </servlet-mapping>
+</web-app>
